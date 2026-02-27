@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -41,6 +42,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.paint.ui.theme.PaintTheme
 import kotlinx.coroutines.launch
+
+// Definimos el color rojito claro para usarlo en toda la app
+val RojoClaroApp = Color(0xFFFF8686)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,11 +71,17 @@ fun WelcomeScreen(navController: NavController) {
     ) {
         Text("Bienvenido a Paint", fontSize = 24.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.size(24.dp))
-        Button(onClick = { navController.navigate("instructions") }) {
+        Button(
+            onClick = { navController.navigate("instructions") },
+            colors = ButtonDefaults.buttonColors(containerColor = RojoClaroApp)
+        ) {
             Text("Instrucciones")
         }
         Spacer(modifier = Modifier.size(12.dp))
-        Button(onClick = { navController.navigate("paint") }) {
+        Button(
+            onClick = { navController.navigate("paint") },
+            colors = ButtonDefaults.buttonColors(containerColor = RojoClaroApp)
+        ) {
             Text("Dibujar")
         }
     }
@@ -101,7 +111,11 @@ fun InstructionsScreen(navController: NavController) {
         """.trimIndent(), fontSize = 16.sp, lineHeight = 24.sp)
 
         Spacer(modifier = Modifier.size(32.dp))
-        Button(onClick = { navController.navigate("paint") }, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = { navController.navigate("paint") },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = RojoClaroApp)
+        ) {
             Text("Entendido! Ir a Dibujar")
         }
     }
@@ -209,17 +223,27 @@ fun PaintApp() {
             }
             BrushSizeSelector(brushSize) { brushSize = it }
 
-            Button(onClick = { isEraser = !isEraser }) {
+            Button(
+                onClick = { isEraser = !isEraser },
+                colors = ButtonDefaults.buttonColors(containerColor = RojoClaroApp)
+            ) {
                 Text(if (isEraser) "Dibujar" else "Borrar")
             }
         }
 
         // Botones de acción
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp), horizontalArrangement = Arrangement.End) {
-            Button(onClick = { lines.clear() }, modifier = Modifier.padding(end = 8.dp)) {
+            Button(
+                onClick = { lines.clear() },
+                modifier = Modifier.padding(end = 8.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = RojoClaroApp)
+            ) {
                 Text("Reiniciar")
             }
-            Button(onClick = { coroutine.launch { saveDrawingToGallery(context, lines) } }) {
+            Button(
+                onClick = { coroutine.launch { saveDrawingToGallery(context, lines) } },
+                colors = ButtonDefaults.buttonColors(containerColor = RojoClaroApp)
+            ) {
                 Text("Guardar")
             }
         }
